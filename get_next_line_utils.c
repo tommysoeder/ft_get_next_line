@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_lines_utils.c                             :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tomamart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 18:56:52 by tomamart          #+#    #+#             */
-/*   Updated: 2025/05/27 18:56:54 by tomamart         ###   ########.fr       */
+/*   Updated: 2025/05/27 19:02:11 by tomamart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	str[j] = '\0';
 	return (str);
 }
+
 char	*read_store(int fd, char *stash)
 {
 	char	*buffer;
 	char	*tmp;
-	int		bytes_read;
+	int	bytes_read;
 
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
