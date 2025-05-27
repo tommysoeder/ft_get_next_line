@@ -2,6 +2,9 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <stdlib.h>
+#include <stddef.h>
+
 //#define BUFFER_SIZE 100
 
 // int obtain_fd(char *file)
@@ -28,15 +31,15 @@
 //     printf("Ha leido %d bytes\n", bytes);
 //     printf("En el buffer pone: %s\n", buffer);
 // }
-size_t	ft_strlen(const char *s)
-{
-	int	i;
+// size_t	ft_strlen(const char *s)
+// {
+// 	int	i;
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
+// 	i = 0;
+// 	while (s[i])
+// 		i++;
+// 	return (i);
+// }
 
 // int	main(void)
 // {
@@ -103,33 +106,64 @@ size_t	ft_strlen(const char *s)
 // 	printf("%s\n", dup);
 // 	free(dup);
 // }
-char	*ft_strndup(char *src, size_t n)
-{
-	char	*dst;
-	size_t	i;
-	int	len;
+// char	*ft_strndup(char *src, size_t n)
+// {
+// 	char	*dst;
+// 	size_t	i;
+// 	int	len;
 	
-	len = ft_strlen(src);
-	i = 0;
-	dst = malloc(sizeof(char) * n + 1);
-	if (!dst)
-		return (NULL);
-	while (i < n && src[i] != '\0')
-		{
-			dst[i] = src[i];
-			i++;
-		}
-	dst[i] = '\0';
-	return (dst);
-}
+// 	len = ft_strlen(src);
+// 	i = 0;
+// 	dst = malloc(sizeof(char) * n + 1);
+// 	if (!dst)
+// 		return (NULL);
+// 	while (i < n && src[i] != '\0')
+// 		{
+// 			dst[i] = src[i];
+// 			i++;
+// 		}
+// 	dst[i] = '\0';
+// 	return (dst);
+// }
+
+// int	main(void)
+// {
+// 	char *string;
+// 	char *dup;
+
+// 	string = "Hola, qué tal";
+// 	dup = ft_strndup(string, 5);
+// 	printf("%s\n", dup);
+// 	free(dup);
+// }
+#define BUFFER_SIZE 100
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlen(const char *s);
 
 int	main(void)
 {
-	char *string;
-	char *dup;
+	char	*buffer;
+	char	*stash;
+	int	bytes_read;
 
-	string = "Hola, qué tal";
-	dup = ft_strndup(string, 5);
-	printf("%s\n", dup);
-	free(dup);
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (1);
+	stash = NULL;
+	while (!ft_strchr(stash, '\n'))
+	{
+		bytes_read = read(0, buffer, BUFFER_SIZE);
+		printf("Leídos: %d\n", bytes_read);
+		if (bytes_read <= 0)
+			break ;
+		buffer[bytes_read] = '\0';
+		stash = ft_strjoin(stash, buffer);
+	}
+	if (!stash)
+		printf("No se ha leído nada\n");
+	else
+		printf("%s\n", stash);
+	free(buffer);
+	free(stash);
 }
