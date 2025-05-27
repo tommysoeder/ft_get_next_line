@@ -1,6 +1,15 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# include <stdarg.h>
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 100
+#endif
+
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include <stdlib.h>
+# include <stddef.h>
 
 char    *get_next_line(int fd);
 char    *read_store(int  fd, char *stash);
