@@ -15,7 +15,13 @@ char	*get_next_line(int fd)
 
 char	*read_store(int  fd, char *stash)
 {
+	while (is_newline(stash) == 0 && read > 0)
+	{
+		stash = read(fd, buffer, BUFFER_SIZE);
+	}
+	*stash == '\0';
 	
+	return (stash);
 }
 
 char	*extract_line(char *stash)

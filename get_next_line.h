@@ -6,5 +6,8 @@ char    *get_next_line(int fd);
 char    *read_store(int  fd, char *stash);
 char    *extract_line(char *stash);
 char    *store_rest(char *stash);
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlen(const char *s);
+char	*ft_strjoin(char const *s1, char const *s2);
 
 #endif
