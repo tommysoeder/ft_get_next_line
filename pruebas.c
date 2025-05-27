@@ -136,34 +136,49 @@
 // 	printf("%s\n", dup);
 // 	free(dup);
 // }
-#define BUFFER_SIZE 100
+
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlen(const char *s);
+char	*extract_line(char *stash);
 
 int	main(void)
 {
 	char	*buffer;
 	char	*stash;
 	int	bytes_read;
+	int	fd;
+	char	*line;
 
+	fd = open("lotr.txt", O_RDONLY);
+	if (fd == -1)
+		return (-1);
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 		return (1);
 	stash = NULL;
 	while (!ft_strchr(stash, '\n'))
 	{
-		bytes_read = read(0, buffer, BUFFER_SIZE);
-		printf("Leídos: %d\n", bytes_read);
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read <= 0)
 			break ;
 		buffer[bytes_read] = '\0';
 		stash = ft_strjoin(stash, buffer);
 	}
-	if (!stash)
+	if (!stash || stash[0] == '\0')
+	{
+		printf("Stash vacío\n");
+		free(buffer);
+		free(stash);
+		close(fd);
+		return (0);
+	}
+	line = extract_line(stash);
+	if (!line)
 		printf("No se ha leído nada\n");
 	else
-		printf("%s\n", stash);
+		printf("Linea: %s\n", line);
+	close(fd);
 	free(buffer);
 	free(stash);
 }

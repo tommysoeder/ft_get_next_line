@@ -60,3 +60,35 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	str[j] = 0;
 	return (str);
 }
+
+char	*extract_line(char *stash)
+{
+	char	*line;
+	int	i;
+	int	j;
+	int	len;
+
+	i = 0;
+	j = 0;
+	while (stash[i] != '\n' && stash[i])
+		i++;
+	if (stash[i] == '\n')
+		len = i + 2;
+	else
+		len = i + 1;
+	line = malloc(sizeof(char) * len);
+	if (!line)
+		return (NULL);
+	while (stash[j] && stash[j] != '\n')
+	{
+		line[j] = stash[j];
+		j++;
+	}
+	if (stash[j] == '\n')
+	{
+		line[j] = '\n';
+		j++;
+	}
+	line[j] = '\0';
+	return (line);
+}
