@@ -6,7 +6,7 @@
 /*   By: tomamart <tomamart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 18:56:27 by tomamart          #+#    #+#             */
-/*   Updated: 2025/06/02 19:50:49 by tomamart         ###   ########.fr       */
+/*   Updated: 2025/06/02 20:50:51 by tomamart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ char	*store_rest(char *stash);
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
-void	*ft_calloc(size_t nmemb, size_t size);
+// void	*ft_calloc(size_t nmemb, size_t size);
 
 #endif

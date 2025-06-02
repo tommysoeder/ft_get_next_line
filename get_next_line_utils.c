@@ -6,7 +6,7 @@
 /*   By: tomamart <tomamart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 18:56:52 by tomamart          #+#    #+#             */
-/*   Updated: 2025/06/02 20:25:54 by tomamart         ###   ########.fr       */
+/*   Updated: 2025/06/02 21:06:33 by tomamart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,28 @@
 #include <stddef.h>
 #include "get_next_line.h"
 
-void	*malloc(size_t nmemb, size_t size)
-{
-	size_t	total;
-	void	*ptr;
-	size_t	i;
-	char	*temp;
+// void	*malloc(size_t nmemb, size_t size)
+// {
+// 	size_t	total;
+// 	void	*ptr;
+// 	size_t	i;
+// 	char	*temp;
 
-	if (nmemb <= 0 || size <= 0)
-		return (NULL);
-	total = nmemb * size;
-	ptr = malloc(total);
-	if (!ptr)
-		return (NULL);
-	temp = (char *)ptr;
-	i = 0;
-	while (i < total)
-	{
-		temp[i] = 0;
-		i++;
-	}
-	return (ptr);
-}
+// 	if (nmemb <= 0 || size <= 0)
+// 		return (NULL);
+// 	total = nmemb * size;
+// 	ptr = malloc(total);
+// 	if (!ptr)
+// 		return (NULL);
+// 	temp = (char *)ptr;
+// 	i = 0;
+// 	while (i < total)
+// 	{
+// 		temp[i] = 0;
+// 		i++;
+// 	}
+// 	return (ptr);
+// }
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -72,12 +72,15 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	j;
 	char	*str;
 
+	// if (!s1)
+	// {
+	// 	s1 = malloc(1);
+	// 	if (!s1)
+	// 		return (NULL);
+	// 	((char *)s1)[0] = '\0';
+	// }
 	if (!s1)
-	{
-		s1 = malloc(1);
-		if (!s1)
-			return (NULL);
-	}
+		s1 = "";
 	if (!s2)
 		return (NULL);
 	str = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);

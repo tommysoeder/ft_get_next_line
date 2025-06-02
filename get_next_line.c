@@ -6,7 +6,7 @@
 /*   By: tomamart <tomamart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 18:56:09 by tomamart          #+#    #+#             */
-/*   Updated: 2025/06/02 20:25:06 by tomamart         ###   ########.fr       */
+/*   Updated: 2025/06/02 21:11:15 by tomamart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ char	*read_store(int fd, char *stash)
 		tmp = stash;
 		stash = ft_strjoin(stash, buffer);
 		free(tmp);
+		if (!stash)
+			return (free(buffer), NULL);
 	}
-	free(buffer);
-	return (stash);
+	return (free(buffer), stash);
 }
 
 char	*extract_line(char *stash)
@@ -63,7 +64,10 @@ char	*extract_line(char *stash)
 	if (!line)
 		return (NULL);
 	while (stash[j] && stash[j] != '\n')
-		line[j] = stash[j++];
+	{
+		line[j] = stash[j];
+		j++;
+	}
 	if (stash[j] == '\n')
 		line[j++] = '\n';
 	line[j] = '\0';
@@ -102,11 +106,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	stash = read_store(fd, stash);
 	if (!stash || stash[0] == '\0')
-	{
-		free(stash);
-		stash = NULL;
-		return (NULL);
-	}
+		return (free(stash), stash = NULL, NULL);
 	line = extract_line(stash);
 	stash = store_rest(stash);
 	return (line);
