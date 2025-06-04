@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tomamart <tomamart@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/27 18:56:09 by tomamart          #+#    #+#             */
-/*   Updated: 2025/06/04 11:45:56 by tomamart         ###   ########.fr       */
+/*   Created: 2025/06/04 11:53:43 by tomamart          #+#    #+#             */
+/*   Updated: 2025/06/04 12:09:25 by tomamart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,15 +100,15 @@ char	*store_rest(char *stash)
 
 char	*get_next_line(int fd)
 {
-	static char	*stash;
+	static char	*stash[1024];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
-	stash = read_store(fd, stash);
-	if (!stash || stash[0] == '\0')
-		return (free(stash), stash = NULL, NULL);
-	line = extract_line(stash);
-	stash = store_rest(stash);
+	stash[fd] = read_store(fd, stash[fd]);
+	if (!stash[fd] || stash[fd][0] == '\0')
+		return (free(stash[fd]), stash[fd] = NULL, NULL);
+	line = extract_line(stash[fd]);
+	stash[fd] = store_rest(stash[fd]);
 	return (line);
 }
